@@ -11,9 +11,11 @@ interface InputFieldProps {
   placeholder?: string;
   step?: number;
   isEdited?: boolean;
+  prefix?: string;
+  suffix?: string;
 }
 
-const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEdited = false }: InputFieldProps) => {
+const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEdited = false, prefix, suffix }: InputFieldProps) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,23 +37,39 @@ const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEd
       <Label htmlFor={id} className="text-sm font-medium text-gray-700">
         {label}
       </Label>
-      <Input
-        id={id}
-        type="number"
-        value={displayValue}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        placeholder={placeholder}
-        step={step}
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 transition-all duration-200 text-lg ${
-          isEdited 
-            ? 'border-blue-500 ring-2 ring-blue-200 shadow-md bg-blue-50' 
-            : 'border-gray-300 focus:ring-blue-500 focus:border-transparent'
-        } ${
-          isActive && !isEdited ? 'ring-2 ring-blue-200 shadow-md' : ''
-        }`}
-      />
+      <div className="relative">
+        {prefix && (
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg font-medium pointer-events-none">
+            {prefix}
+          </div>
+        )}
+        <Input
+          id={id}
+          type="number"
+          value={displayValue}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder={placeholder}
+          step={step}
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 transition-all duration-200 text-lg ${
+            prefix ? 'pl-8' : ''
+          } ${
+            suffix ? 'pr-16' : ''
+          } ${
+            isEdited 
+              ? 'border-blue-500 ring-2 ring-blue-200 shadow-md bg-blue-50' 
+              : 'border-gray-300 focus:ring-blue-500 focus:border-transparent'
+          } ${
+            isActive && !isEdited ? 'ring-2 ring-blue-200 shadow-md' : ''
+          }`}
+        />
+        {suffix && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm pointer-events-none">
+            {suffix}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

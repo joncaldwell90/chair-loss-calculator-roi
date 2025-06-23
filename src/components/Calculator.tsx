@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import InputField from "./InputField";
 import SliderInput from "./SliderInput";
@@ -75,10 +74,11 @@ const Calculator = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             id="avgTicket"
-            label="Average Service Ticket ($)"
+            label="Average Service Ticket"
             value={avgTicket}
             onChange={(value) => handleInputChange('avgTicket', value)}
             placeholder="85"
+            prefix="$"
             isEdited={editedFields.has('avgTicket')}
           />
           
@@ -88,6 +88,7 @@ const Calculator = () => {
             value={clientsPerDay}
             onChange={(value) => handleInputChange('clientsPerDay', value)}
             placeholder="5"
+            suffix="clients"
             isEdited={editedFields.has('clientsPerDay')}
           />
           
