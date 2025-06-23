@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import InputField from "./InputField";
 import SliderInput from "./SliderInput";
@@ -109,6 +110,7 @@ const Calculator = () => {
             onChange={(value) => handleInputChange('daysToFill', value)}
             placeholder="90"
             isEdited={editedFields.has('daysToFill')}
+            helperText="Typical range 60-120 days"
           />
         </div>
 

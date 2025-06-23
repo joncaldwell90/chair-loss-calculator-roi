@@ -13,9 +13,10 @@ interface InputFieldProps {
   isEdited?: boolean;
   prefix?: string;
   suffix?: string;
+  helperText?: string;
 }
 
-const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEdited = false, prefix, suffix }: InputFieldProps) => {
+const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEdited = false, prefix, suffix, helperText }: InputFieldProps) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +71,11 @@ const InputField = ({ id, label, value, onChange, placeholder, step = 0.01, isEd
           </div>
         )}
       </div>
+      {helperText && (
+        <p className="text-xs text-gray-500 mt-1">
+          {helperText}
+        </p>
+      )}
     </div>
   );
 };
