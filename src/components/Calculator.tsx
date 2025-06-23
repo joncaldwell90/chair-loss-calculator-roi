@@ -160,6 +160,16 @@ const Calculator = () => {
       {/* Dynamic CTA Section */}
       <Card className="p-8 bg-white shadow-lg border-0 text-center">
         <div className="space-y-6">
+          {/* Heading and Subheadline */}
+          <div className="space-y-3">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Never Run an Empty Chair Again
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Beautista's Beauty Talent Funnel™ recruits, screens, and delivers licensed, pre-qualified stylists straight to your salon—so you spend your time mentoring, not hunting.
+            </p>
+          </div>
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <TooltipProvider>
