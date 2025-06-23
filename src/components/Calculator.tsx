@@ -3,6 +3,8 @@ import InputField from "./InputField";
 import SliderInput from "./SliderInput";
 import ResultsDisplay from "./ResultsDisplay";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Calculator = () => {
   const [avgTicket, setAvgTicket] = useState(0);
@@ -61,6 +63,27 @@ const Calculator = () => {
         if (value >= 0) setWeeksToFill(value);
         break;
     }
+  };
+
+  // Check if any fields have been edited (results are active)
+  const hasResults = editedFields.size > 0;
+
+  // Format currency for micro-copy
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const handleBookingClick = () => {
+    window.open('https://calendly.com/your-booking-link', '_blank');
+  };
+
+  const handleLearnMoreClick = () => {
+    window.location.href = '/package-details';
   };
 
   return (
@@ -134,10 +157,58 @@ const Calculator = () => {
         emptyChairs={emptyChairs || 1}
       />
 
-      {/* CTA Placeholder */}
-      <div id="ctaAnchor" className="h-20 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
-        <p className="text-gray-500 font-medium">CTA Section Placeholder</p>
-      </div>
+      {/* Dynamic CTA Section */}
+      <Card className="p-8 bg-white shadow-lg border-0 text-center">
+        <div className="space-y-6">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <Button
+                      onClick={handleBookingClick}
+                      disabled={!hasResults}
+                      className={`px-6 py-3 text-lg font-bold rounded-lg transition-all duration-300 shadow-lg ${
+                        hasResults 
+                          ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                          : 'bg-blue-600 text-white opacity-40 cursor-not-allowed'
+                      }`}
+                      size="lg"
+                    >
+                      Book My Hiring Plan Call
+                    </Button>
+                  </div>
+                </TooltipTrigger>
+                {!hasResults && (
+                  <TooltipContent>
+                    <p>Calculate first</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+
+            <Button
+              onClick={handleLearnMoreClick}
+              variant="outline"
+              className="px-6 py-3 text-lg font-medium rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition-all duration-300"
+              size="lg"
+            >
+              Learn More
+            </Button>
+          </div>
+
+          {/* Micro-Copy */}
+          {hasResults && (
+            <div className="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
+              <p className="text-lg text-red-800 font-medium">
+                Your results show you're losing <span className="font-bold">{formatCurrency(lostRevPerWeek)}</span> per week. 
+                Stop the leak in just 15 minutes.
+              </p>
+            </div>
+          )}
+        </div>
+      </Card>
     </div>
   );
 };
