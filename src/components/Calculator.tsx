@@ -16,25 +16,16 @@ const Calculator = () => {
   const [weeklyRevPerChair, setWeeklyRevPerChair] = useState(0);
   const [lostRevPerWeek, setLostRevPerWeek] = useState(0);
   const [cumulativeLoss, setCumulativeLoss] = useState(0);
-  const [breakEvenBoosted, setBreakEvenBoosted] = useState(0);
-  const [breakEvenGuaranteed, setBreakEvenGuaranteed] = useState(0);
-
-  const boostedFee = 1500;
-  const guaranteedFee = 2500;
 
   useEffect(() => {
     // Real-time calculations
     const weeklyRev = avgTicket * clientsPerDay * daysOpen;
     const lostRev = weeklyRev * emptyChairs;
     const cumLoss = lostRev * (daysToFill / 7);
-    const breakEvenB = lostRev > 0 ? boostedFee / lostRev : 0;
-    const breakEvenG = lostRev > 0 ? guaranteedFee / lostRev : 0;
 
     setWeeklyRevPerChair(weeklyRev);
     setLostRevPerWeek(lostRev);
     setCumulativeLoss(cumLoss);
-    setBreakEvenBoosted(breakEvenB);
-    setBreakEvenGuaranteed(breakEvenG);
   }, [avgTicket, clientsPerDay, emptyChairs, daysOpen, daysToFill]);
 
   const handleInputChange = (field: string, value: number) => {
@@ -114,10 +105,6 @@ const Calculator = () => {
       <ResultsDisplay
         lostRevPerWeek={lostRevPerWeek}
         cumulativeLoss={cumulativeLoss}
-        breakEvenBoosted={breakEvenBoosted}
-        breakEvenGuaranteed={breakEvenGuaranteed}
-        boostedFee={boostedFee}
-        guaranteedFee={guaranteedFee}
       />
 
       {/* CTA Placeholder */}
