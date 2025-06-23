@@ -8,6 +8,7 @@ interface ResultsDisplayProps {
   cumulativeLoss: number;
   monthlyLoss: number;
   yearlyLoss: number;
+  emptyChairs: number;
 }
 
 const ResultsDisplay = ({
@@ -15,6 +16,7 @@ const ResultsDisplay = ({
   cumulativeLoss,
   monthlyLoss,
   yearlyLoss,
+  emptyChairs,
 }: ResultsDisplayProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -33,6 +35,8 @@ const ResultsDisplay = ({
       maximumFractionDigits: 0,
     }).format(amount);
   };
+
+  const seatLabel = emptyChairs === 1 ? 'Seat' : 'Seats';
 
   return (
     <div className="space-y-6">
@@ -61,7 +65,7 @@ const ResultsDisplay = ({
             <div className="p-2 bg-orange-500 rounded-lg">
               <DollarSign className="h-6 w-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-orange-800">Total Loss Before Seat Filled</h3>
+            <h3 className="text-lg font-semibold text-orange-800">Total Loss Before {seatLabel} Filled</h3>
           </div>
           <p className={`text-3xl font-bold text-orange-600 transition-all duration-300 ${
             isUpdating ? 'scale-105' : ''

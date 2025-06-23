@@ -132,6 +132,7 @@ const Calculator = () => {
         cumulativeLoss={cumulativeLoss}
         monthlyLoss={monthlyLoss}
         yearlyLoss={yearlyLoss}
+        emptyChairs={emptyChairs || 1}
       />
 
       {/* CTA Placeholder */}
