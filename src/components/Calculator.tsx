@@ -10,7 +10,7 @@ const Calculator = () => {
   const [clientsPerDay, setClientsPerDay] = useState(0);
   const [emptyChairs, setEmptyChairs] = useState(0);
   const [daysOpen, setDaysOpen] = useState(5);
-  const [daysToFill, setDaysToFill] = useState(0);
+  const [weeksToFill, setWeeksToFill] = useState(0);
 
   // Track which fields have been edited
   const [editedFields, setEditedFields] = useState<Set<string>>(new Set());
@@ -27,12 +27,12 @@ const Calculator = () => {
     const effectiveAvgTicket = avgTicket || 85;
     const effectiveClientsPerDay = clientsPerDay || 5;
     const effectiveEmptyChairs = emptyChairs || 1;
-    const effectiveDaysToFill = daysToFill || 90;
+    const effectiveWeeksToFill = weeksToFill || 13; // ~90 days = 13 weeks
 
     // Real-time calculations
     const weeklyRev = effectiveAvgTicket * effectiveClientsPerDay * daysOpen;
     const lostRev = weeklyRev * effectiveEmptyChairs;
-    const cumLoss = lostRev * (effectiveDaysToFill / 7);
+    const cumLoss = lostRev * effectiveWeeksToFill;
     const monthlyLossCalc = lostRev * 4.33; // Average weeks per month
     const yearlyLossCalc = lostRev * 52; // 52 weeks per year
 
@@ -41,7 +41,7 @@ const Calculator = () => {
     setCumulativeLoss(cumLoss);
     setMonthlyLoss(monthlyLossCalc);
     setYearlyLoss(yearlyLossCalc);
-  }, [avgTicket, clientsPerDay, emptyChairs, daysOpen, daysToFill]);
+  }, [avgTicket, clientsPerDay, emptyChairs, daysOpen, weeksToFill]);
 
   const handleInputChange = (field: string, value: number) => {
     // Mark field as edited
@@ -58,8 +58,8 @@ const Calculator = () => {
       case 'emptyChairs':
         if (value >= 0 && Number.isInteger(value)) setEmptyChairs(value);
         break;
-      case 'daysToFill':
-        if (value >= 0) setDaysToFill(value);
+      case 'weeksToFill':
+        if (value >= 0) setWeeksToFill(value);
         break;
     }
   };
@@ -104,13 +104,13 @@ const Calculator = () => {
           />
           
           <InputField
-            id="daysToFill"
-            label="Estimated Days to Fill Seat"
-            value={daysToFill}
-            onChange={(value) => handleInputChange('daysToFill', value)}
-            placeholder="90"
-            isEdited={editedFields.has('daysToFill')}
-            helperText="Typical range 60-120 days"
+            id="weeksToFill"
+            label="Estimated Weeks to Fill Seat"
+            value={weeksToFill}
+            onChange={(value) => handleInputChange('weeksToFill', value)}
+            placeholder="13"
+            isEdited={editedFields.has('weeksToFill')}
+            helperText="Typical range 9-17 weeks"
           />
         </div>
 
