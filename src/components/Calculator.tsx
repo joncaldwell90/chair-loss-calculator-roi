@@ -79,11 +79,11 @@ const Calculator = () => {
   };
 
   const handleBookingClick = () => {
-    window.open('https://calendly.com/your-booking-link', '_blank');
+    window.open('https://calendly.com/matt-canvasme/exclusive-salon-recruitment-program', '_blank');
   };
 
   const handleLearnMoreClick = () => {
-    window.location.href = '/package-details';
+    window.open('https://go.beautista.com/exclusive-salon-offer-2025/', '_blank');
   };
 
   return (
