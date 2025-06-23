@@ -1,16 +1,20 @@
 
 import { Card } from "@/components/ui/card";
-import { DollarSign, TrendingDown } from "lucide-react";
+import { DollarSign, TrendingDown, Calendar, CalendarDays } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ResultsDisplayProps {
   lostRevPerWeek: number;
   cumulativeLoss: number;
+  monthlyLoss: number;
+  yearlyLoss: number;
 }
 
 const ResultsDisplay = ({
   lostRevPerWeek,
   cumulativeLoss,
+  monthlyLoss,
+  yearlyLoss,
 }: ResultsDisplayProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -19,7 +23,7 @@ const ResultsDisplay = ({
     setIsUpdating(true);
     const timer = setTimeout(() => setIsUpdating(false), 300);
     return () => clearTimeout(timer);
-  }, [lostRevPerWeek, cumulativeLoss]);
+  }, [lostRevPerWeek, cumulativeLoss, monthlyLoss, yearlyLoss]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -64,6 +68,43 @@ const ResultsDisplay = ({
           }`}>
             {formatCurrency(cumulativeLoss)}
           </p>
+        </Card>
+      </div>
+
+      {/* Extended Projections */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className={`p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 transition-all duration-300 ${
+          isUpdating ? 'ring-2 ring-purple-300 scale-[1.02]' : ''
+        }`}>
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="p-2 bg-purple-500 rounded-lg">
+              <Calendar className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-semibold text-purple-800">Monthly Loss</h3>
+          </div>
+          <p className={`text-3xl font-bold text-purple-600 transition-all duration-300 ${
+            isUpdating ? 'scale-105' : ''
+          }`}>
+            {formatCurrency(monthlyLoss)}
+          </p>
+          <p className="text-sm text-purple-600 mt-2">Per empty chair</p>
+        </Card>
+
+        <Card className={`p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 transition-all duration-300 ${
+          isUpdating ? 'ring-2 ring-indigo-300 scale-[1.02]' : ''
+        }`}>
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="p-2 bg-indigo-500 rounded-lg">
+              <CalendarDays className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-semibold text-indigo-800">Annual Loss</h3>
+          </div>
+          <p className={`text-3xl font-bold text-indigo-600 transition-all duration-300 ${
+            isUpdating ? 'scale-105' : ''
+          }`}>
+            {formatCurrency(yearlyLoss)}
+          </p>
+          <p className="text-sm text-indigo-600 mt-2">Per empty chair</p>
         </Card>
       </div>
 

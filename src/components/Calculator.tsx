@@ -16,16 +16,22 @@ const Calculator = () => {
   const [weeklyRevPerChair, setWeeklyRevPerChair] = useState(0);
   const [lostRevPerWeek, setLostRevPerWeek] = useState(0);
   const [cumulativeLoss, setCumulativeLoss] = useState(0);
+  const [monthlyLoss, setMonthlyLoss] = useState(0);
+  const [yearlyLoss, setYearlyLoss] = useState(0);
 
   useEffect(() => {
     // Real-time calculations
     const weeklyRev = avgTicket * clientsPerDay * daysOpen;
     const lostRev = weeklyRev * emptyChairs;
     const cumLoss = lostRev * (daysToFill / 7);
+    const monthlyLossCalc = lostRev * 4.33; // Average weeks per month
+    const yearlyLossCalc = lostRev * 52; // 52 weeks per year
 
     setWeeklyRevPerChair(weeklyRev);
     setLostRevPerWeek(lostRev);
     setCumulativeLoss(cumLoss);
+    setMonthlyLoss(monthlyLossCalc);
+    setYearlyLoss(yearlyLossCalc);
   }, [avgTicket, clientsPerDay, emptyChairs, daysOpen, daysToFill]);
 
   const handleInputChange = (field: string, value: number) => {
@@ -105,6 +111,8 @@ const Calculator = () => {
       <ResultsDisplay
         lostRevPerWeek={lostRevPerWeek}
         cumulativeLoss={cumulativeLoss}
+        monthlyLoss={monthlyLoss}
+        yearlyLoss={yearlyLoss}
       />
 
       {/* CTA Placeholder */}
