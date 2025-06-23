@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import InputField from "./InputField";
 import SliderInput from "./SliderInput";
@@ -27,7 +26,7 @@ const Calculator = () => {
     const effectiveAvgTicket = avgTicket || 85;
     const effectiveClientsPerDay = clientsPerDay || 5;
     const effectiveEmptyChairs = emptyChairs || 1;
-    const effectiveWeeksToFill = weeksToFill || 13; // ~90 days = 13 weeks
+    const effectiveWeeksToFill = weeksToFill || 8; // Changed from 13 to 8
 
     // Real-time calculations
     const weeklyRev = effectiveAvgTicket * effectiveClientsPerDay * daysOpen;
@@ -108,7 +107,7 @@ const Calculator = () => {
             label="Estimated Weeks to Fill Seat"
             value={weeksToFill}
             onChange={(value) => handleInputChange('weeksToFill', value)}
-            placeholder="13"
+            placeholder="8"
             isEdited={editedFields.has('weeksToFill')}
             helperText="Typical range 4-12 weeks"
           />
