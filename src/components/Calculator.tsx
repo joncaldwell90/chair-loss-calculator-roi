@@ -110,7 +110,7 @@ const Calculator = () => {
             onChange={(value) => handleInputChange('weeksToFill', value)}
             placeholder="13"
             isEdited={editedFields.has('weeksToFill')}
-            helperText="Typical range 9-17 weeks"
+            helperText="Typical range 4-12 weeks"
           />
         </div>
 
