@@ -6,11 +6,14 @@ import ResultsDisplay from "./ResultsDisplay";
 import { Card } from "@/components/ui/card";
 
 const Calculator = () => {
-  const [avgTicket, setAvgTicket] = useState(85);
-  const [clientsPerDay, setClientsPerDay] = useState(5);
-  const [emptyChairs, setEmptyChairs] = useState(1);
+  const [avgTicket, setAvgTicket] = useState(0);
+  const [clientsPerDay, setClientsPerDay] = useState(0);
+  const [emptyChairs, setEmptyChairs] = useState(0);
   const [daysOpen, setDaysOpen] = useState(5);
-  const [daysToFill, setDaysToFill] = useState(90);
+  const [daysToFill, setDaysToFill] = useState(0);
+
+  // Track which fields have been edited
+  const [editedFields, setEditedFields] = useState<Set<string>>(new Set());
 
   // Calculations
   const [weeklyRevPerChair, setWeeklyRevPerChair] = useState(0);
@@ -20,10 +23,16 @@ const Calculator = () => {
   const [yearlyLoss, setYearlyLoss] = useState(0);
 
   useEffect(() => {
+    // Use default values for calculation if field is empty
+    const effectiveAvgTicket = avgTicket || 85;
+    const effectiveClientsPerDay = clientsPerDay || 5;
+    const effectiveEmptyChairs = emptyChairs || 1;
+    const effectiveDaysToFill = daysToFill || 90;
+
     // Real-time calculations
-    const weeklyRev = avgTicket * clientsPerDay * daysOpen;
-    const lostRev = weeklyRev * emptyChairs;
-    const cumLoss = lostRev * (daysToFill / 7);
+    const weeklyRev = effectiveAvgTicket * effectiveClientsPerDay * daysOpen;
+    const lostRev = weeklyRev * effectiveEmptyChairs;
+    const cumLoss = lostRev * (effectiveDaysToFill / 7);
     const monthlyLossCalc = lostRev * 4.33; // Average weeks per month
     const yearlyLossCalc = lostRev * 52; // 52 weeks per year
 
@@ -35,19 +44,22 @@ const Calculator = () => {
   }, [avgTicket, clientsPerDay, emptyChairs, daysOpen, daysToFill]);
 
   const handleInputChange = (field: string, value: number) => {
+    // Mark field as edited
+    setEditedFields(prev => new Set(prev).add(field));
+    
     // Validation
     switch (field) {
       case 'avgTicket':
-        if (value > 0) setAvgTicket(value);
+        if (value >= 0) setAvgTicket(value);
         break;
       case 'clientsPerDay':
-        if (value > 0) setClientsPerDay(value);
+        if (value >= 0) setClientsPerDay(value);
         break;
       case 'emptyChairs':
-        if (value >= 1 && Number.isInteger(value)) setEmptyChairs(value);
+        if (value >= 0 && Number.isInteger(value)) setEmptyChairs(value);
         break;
       case 'daysToFill':
-        if (value >= 1) setDaysToFill(value);
+        if (value >= 0) setDaysToFill(value);
         break;
     }
   };
@@ -67,6 +79,7 @@ const Calculator = () => {
             value={avgTicket}
             onChange={(value) => handleInputChange('avgTicket', value)}
             placeholder="85"
+            isEdited={editedFields.has('avgTicket')}
           />
           
           <InputField
@@ -75,6 +88,7 @@ const Calculator = () => {
             value={clientsPerDay}
             onChange={(value) => handleInputChange('clientsPerDay', value)}
             placeholder="5"
+            isEdited={editedFields.has('clientsPerDay')}
           />
           
           <InputField
@@ -84,6 +98,7 @@ const Calculator = () => {
             onChange={(value) => handleInputChange('emptyChairs', value)}
             placeholder="1"
             step={1}
+            isEdited={editedFields.has('emptyChairs')}
           />
           
           <InputField
@@ -92,6 +107,7 @@ const Calculator = () => {
             value={daysToFill}
             onChange={(value) => handleInputChange('daysToFill', value)}
             placeholder="90"
+            isEdited={editedFields.has('daysToFill')}
           />
         </div>
 
