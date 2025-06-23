@@ -87,7 +87,6 @@ const ResultsDisplay = ({
           }`}>
             {formatCurrency(monthlyLoss)}
           </p>
-          <p className="text-sm text-purple-600 mt-2">Per empty chair</p>
         </Card>
 
         <Card className={`p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 transition-all duration-300 text-center ${
@@ -104,7 +103,6 @@ const ResultsDisplay = ({
           }`}>
             {formatCurrency(yearlyLoss)}
           </p>
-          <p className="text-sm text-indigo-600 mt-2">Per empty chair</p>
         </Card>
       </div>
 
