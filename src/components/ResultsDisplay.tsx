@@ -38,10 +38,10 @@ const ResultsDisplay = ({
     <div className="space-y-6">
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className={`p-6 bg-gradient-to-br from-red-50 to-red-100 border-red-200 transition-all duration-300 ${
+        <Card className={`p-6 bg-gradient-to-br from-red-50 to-red-100 border-red-200 transition-all duration-300 text-center ${
           isUpdating ? 'ring-2 ring-red-300 scale-[1.02]' : ''
         }`}>
-          <div className="flex items-center space-x-3 mb-3">
+          <div className="flex items-center justify-center space-x-3 mb-3">
             <div className="p-2 bg-red-500 rounded-lg">
               <TrendingDown className="h-6 w-6 text-white" />
             </div>
@@ -54,10 +54,10 @@ const ResultsDisplay = ({
           </p>
         </Card>
 
-        <Card className={`p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200 transition-all duration-300 ${
+        <Card className={`p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200 transition-all duration-300 text-center ${
           isUpdating ? 'ring-2 ring-orange-300 scale-[1.02]' : ''
         }`}>
-          <div className="flex items-center space-x-3 mb-3">
+          <div className="flex items-center justify-center space-x-3 mb-3">
             <div className="p-2 bg-orange-500 rounded-lg">
               <DollarSign className="h-6 w-6 text-white" />
             </div>
@@ -73,10 +73,10 @@ const ResultsDisplay = ({
 
       {/* Extended Projections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className={`p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 transition-all duration-300 ${
+        <Card className={`p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 transition-all duration-300 text-center ${
           isUpdating ? 'ring-2 ring-purple-300 scale-[1.02]' : ''
         }`}>
-          <div className="flex items-center space-x-3 mb-3">
+          <div className="flex items-center justify-center space-x-3 mb-3">
             <div className="p-2 bg-purple-500 rounded-lg">
               <Calendar className="h-6 w-6 text-white" />
             </div>
@@ -90,10 +90,10 @@ const ResultsDisplay = ({
           <p className="text-sm text-purple-600 mt-2">Per empty chair</p>
         </Card>
 
-        <Card className={`p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 transition-all duration-300 ${
+        <Card className={`p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 transition-all duration-300 text-center ${
           isUpdating ? 'ring-2 ring-indigo-300 scale-[1.02]' : ''
         }`}>
-          <div className="flex items-center space-x-3 mb-3">
+          <div className="flex items-center justify-center space-x-3 mb-3">
             <div className="p-2 bg-indigo-500 rounded-lg">
               <CalendarDays className="h-6 w-6 text-white" />
             </div>
